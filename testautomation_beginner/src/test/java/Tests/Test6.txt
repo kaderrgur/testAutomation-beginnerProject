@@ -1,0 +1,63 @@
+package Tests;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+public class Test6 {
+
+    public static void main(String[] args) {
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+
+
+        //driver.get("https://demoqa.com/buttons");
+        driver.get("https://demoqa.com/dynamic-properties");
+        driver.manage().window().maximize();
+
+        //String url = driver.navigate();
+        //System.out.println(url);
+
+        //WebElement dynamicClickButton = driver.findElement(By.xpath("//div/button[starts-with(text() , 'Click Me')]"));
+        //dynamicClickButton.click();
+
+        // //div[last()]/button
+
+        //gettext methodu ile text elementindeki texti console ekranına yazdırmış olduk.
+        WebElement textelement = driver.findElement(By.xpath("//div/p"));
+        String text = textelement.getText();
+        System.out.println(text);
+
+        //wait methodu ile 5 sn element tıklanabilir olana kadar bekletiyoruz ve elemente tıklatıyoruz.
+        WebElement firstButton = driver.findElement(By.id("enableAfter"));
+        WebDriverWait wait = new WebDriverWait(driver , Duration.ofSeconds(7));
+        wait.until(ExpectedConditions.elementToBeClickable(firstButton));
+        firstButton.click();
+
+        //5 sn içinde rengi değişen bir butonun classını yakaladık ve tıklattık.
+        WebElement colorChangeButton = driver.findElement(By.id("colorChange"));
+        String className = colorChangeButton.getAttribute("class");
+        System.out.println("Before Change: " + className);
+
+        WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(7));
+        wait2.until(ExpectedConditions.attributeToBe(colorChangeButton, "class", "mt-4 text-danger btn btn-primary"));
+        className = colorChangeButton.getAttribute("class");
+        System.out.println("After Change: " + className);
+
+        //5 sn içinde görünür olan bie elementin classını yakaladık ve tıklattık.
+        WebDriverWait wait3 = new WebDriverWait(driver, Duration.ofSeconds(7));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("visibleAfter")));
+        driver.findElement(By.id("visibleAfter")).click();
+
+
+    }
+}

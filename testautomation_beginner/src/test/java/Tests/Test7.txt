@@ -1,0 +1,59 @@
+package Tests;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+
+import java.io.IOException;
+import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+
+public class Test7 {
+
+    public static void main(String[] args) throws IOException {
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+
+
+        //driver.get("https://demoqa.com/buttons");
+        driver.get("https://demoqa.com/broken");
+        driver.manage().window().maximize();
+
+        //KIRIK GÖRSEL TESPİTİ
+
+        //Kırık görsreli xpath ile projeye verdik.
+        WebElement brokenImage =driver.findElement(By.xpath("//div/img[2]"));
+        //Bu görselin src değerini string bir değişkene atadık.
+        String brokenImageUrl = brokenImage.getAttribute("src");
+        //Console ekranına görselin adresini yazdırdık.
+        System.out.println(brokenImageUrl);
+
+        //KIRIK LİNK TESPİTİ
+
+        //Yeni bir client oluşturduk.
+       // HttpClient client = HttpClientBuilder.create().build();
+        //Burada request attık.
+       // HttpGet request = new HttpGet("https://demoqa.com/");
+        //Burada da response dönütünü alıyoruz.
+       // HttpResponse response = client.execute(request);
+        //Responsun status değerini aldık
+       // int statusCode = response.getStatusLine().getStatusCode();
+        //Console ekranına yazdırdık
+       // System.out.println(statusCode);
+
+
+    }
+}

@@ -1,0 +1,53 @@
+package Tests;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
+
+
+import java.io.IOException;
+import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Test9 {
+
+    WebDriver driver;
+
+    @Test
+    public void test_9() {
+        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
+        driver = new ChromeDriver();
+        driver.get("https://demoqa.com/browser-windows");
+
+        // Elementi bulup tıklattık.
+        WebElement tabButton = driver.findElement(By.id("tabButton"));
+        tabButton.click();
+
+        //Açık window sayısını bir array liste atadık. Ve bu listenin uzunluğunu console ekranına yazdırdık.
+        List<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        System.out.println(tabs.size());
+
+        //Wwindowlar arasında geçiş sağladık ve geçiş sağladığımızın teyidine dair console ekranına url bilgisini yazdırdık.
+        driver.switchTo().window(tabs.get(1));
+        System.out.println(driver.getCurrentUrl());
+
+        driver.close();
+
+    }
+
+}
